@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Bahasa Indonesia Kelas 4 - Kurikulum Merdeka</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Fredoka -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        literasi: {
+                            teal: '#0D9488',
+                            orange: '#F97316',
+                            amber: '#F59E0B',
+                            blue: '#0284C7',
+                            purple: '#7C3AED',
+                            rose: '#E11D48',
+                            cream: '#FFFBEB'
+                        }
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Calm, non-shaking UI aesthetics */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #E0F2FE 0%, #FEF3C7 50%, #FEE2E2 100%);
+            min-height: 100vh;
+        }
+
+        .font-game {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            /* Ensured smooth and static elements without shaking/wobble animations */
+            transform: none !important;
+            animation: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0d9488;
+            border-radius: 10px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #certificate-modal, #certificate-modal * {
+                visibility: visible;
+            }
+            #certificate-modal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
+
+    <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-teal-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
+                <div class="w-10 h-10 rounded-2xl bg-teal-600 flex items-center justify-center text-white font-bold text-xl shadow-sm">
+                    📖
+                </div>
+                <div>
+                    <h1 class="font-game font-bold text-base md:text-lg text-slate-800 leading-tight">
+                        PETUALANGAN BAHASA INDONESIA KELAS 4
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium hidden sm:block">Kurikulum Merdeka • Semester 1</p>
+                </div>
+            </div>
+
+            <!-- Header Navigation Controls -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button onclick="goHome()" class="font-game bg-amber-500 hover:bg-amber-600 text-white px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-bold shadow-sm transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-house"></i>
+                    <span>HOME</span>
+                </button>
+
+                <div class="flex items-center bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-1 gap-2">
+                    <button id="btn-audio-toggle" onclick="toggleMute()" class="text-teal-700 hover:text-teal-900 text-base font-bold transition" title="Toggle Suara">
+                        <i id="icon-audio" class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.8" oninput="changeVolume(this.value)" class="w-16 md:w-20 accent-teal-600 cursor-pointer">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 flex flex-col justify-center">
+
+        <!-- WELCOME SCREEN -->
+        <section id="screen-welcome" class="glass-card rounded-3xl p-6 md:p-10 text-center max-w-3xl mx-auto w-full my-auto">
+            <div class="flex justify-center items-center gap-4 mb-4">
+                <div class="w-32 h-32 md:w-36 md:h-36 bg-gradient-to-tr from-teal-400 to-amber-300 rounded-3xl p-3 shadow-md flex items-center justify-center relative">
+                    <!-- SVG Adventurer Mascot -->
+                    <svg viewBox="0 0 120 120" class="w-full h-full drop-shadow-sm">
+                        <circle cx="60" cy="45" r="22" fill="#FDBA74"/>
+                        <path d="M40 40 C42 22 78 22 80 40 C75 30 45 30 40 40 Z" fill="#78350F"/>
+                        <path d="M35 32 Q60 15 85 32 L90 35 L30 35 Z" fill="#0D9488"/>
+                        <circle cx="53" cy="45" r="3" fill="#1E293B"/>
+                        <circle cx="67" cy="45" r="3" fill="#1E293B"/>
+                        <path d="M54 53 Q60 59 66 53" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M35 75 Q60 65 85 75 L90 105 L30 105 Z" fill="#F97316"/>
+                        <rect x="40" y="72" width="28" height="35" rx="3" fill="#0284C7" stroke="#FFFFFF" stroke-width="2"/>
+                        <line x1="54" y1="72" x2="54" y2="107" stroke="#FFFFFF" stroke-width="2"/>
+                        <path d="M75 75 Q85 60 92 50 Q88 65 82 80 Z" fill="#F59E0B"/>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-amber-400 text-amber-950 font-bold text-xs px-2.5 py-1 rounded-full border-2 border-white shadow-sm">
+                        🌟 Literasi
+                    </span>
+                </div>
+            </div>
+
+            <h2 class="font-game text-3xl md:text-4xl font-extrabold text-teal-700 mb-1 tracking-wide">
+                PETUALANGAN BAHASA INDONESIA
+            </h2>
+            <p class="text-sm md:text-base font-bold text-amber-600 mb-8">
+                Bahasa Indonesia Kurikulum Merdeka Kelas 4 SD/MI - Semester 1
+            </p>
+
+            <div class="bg-teal-50 border-2 border-teal-200 rounded-2xl p-6 mb-6 max-w-md mx-auto">
+                <label for="student-name-input" class="block font-game text-slate-800 text-base mb-2">
+                    👋 Halo Petualang Muda! Tuliskan Namamu:
+                </label>
+                <input type="text" id="student-name-input" placeholder="Nama lengkap kamu..." 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-teal-300 focus:border-teal-600 focus:outline-none text-center font-semibold text-lg text-slate-800 shadow-sm transition">
+                
+                <div id="welcome-speech-box" class="hidden mt-3 p-3 bg-emerald-100 border border-emerald-300 rounded-xl text-emerald-800 font-semibold text-sm">
+                    <span id="welcome-speech-text"></span>
+                </div>
+            </div>
+
+            <button onclick="submitStudentName()" class="font-game bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold text-xl px-8 py-4 rounded-2xl shadow-md transition duration-200 w-full max-w-md">
+                🚀 MULAI PETUALANGAN
+            </button>
+        </section>
+
+        <!-- MAIN HOME / BERANDA SCREEN -->
+        <section id="screen-home" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                        🎒
+                    </div>
+                    <div>
+                        <span id="home-user-badge" class="bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-xs">
+                            Petualang: Siswa
+                        </span>
+                        <h2 class="font-game text-2xl md:text-3xl font-extrabold text-slate-800 mt-1">
+                            Pilih Pos Petualangan Literasi
+                        </h2>
+                    </div>
+                </div>
+
+                <button onclick="startQuiz(true)" class="font-game bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
+                    <span>📝</span> MULAI KUIS (50 SOAL)
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                <!-- Level 1 Card -->
+                <div onclick="openLevelMaterial(1)" class="bg-gradient-to-br from-teal-50 to-emerald-50 border-2 border-teal-200 rounded-2xl p-5 shadow-sm hover:border-teal-400 cursor-pointer transition">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="bg-teal-600 text-white font-game text-xs font-bold px-3 py-1 rounded-lg">LEVEL 1 / BAB 1</span>
+                        <span class="text-3xl">📚</span>
+                    </div>
+                    <h3 class="font-game text-xl font-bold text-teal-800 mb-2">AKU SUDAH BESAR</h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">
+                        Modul Pembelajaran Unsur Intrinsik Cerita, Kalimat Transitif & Intransitif, serta Kamus Besar Bahasa Indonesia (KBBI).
+                    </p>
+                    <div class="text-xs font-bold text-teal-600 flex items-center gap-1">
+                        <span>Buka Modul Pembelajaran</span> ➔
+                    </div>
+                </div>
+
+                <!-- Level 2 Card -->
+                <div onclick="openLevelMaterial(2)" class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-5 shadow-sm hover:border-amber-400 cursor-pointer transition">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="bg-amber-600 text-white font-game text-xs font-bold px-3 py-1 rounded-lg">LEVEL 2 / BAB 2</span>
+                        <span class="text-3xl">🏠</span>
+                    </div>
+                    <h3 class="font-game text-xl font-bold text-amber-800 mb-2">DI BAWAH ATAP</h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">
+                        Modul Pembelajaran Ide Pokok & Pendukung, Kalimat Majemuk Setara Lengkap, dan Kata Homonim.
+                    </p>
+                    <div class="text-xs font-bold text-amber-600 flex items-center gap-1">
+                        <span>Buka Modul Pembelajaran</span> ➔
+                    </div>
+                </div>
+
+                <!-- Level 3 Card -->
+                <div onclick="openLevelMaterial(3)" class="bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200 rounded-2xl p-5 shadow-sm hover:border-blue-400 cursor-pointer transition">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="bg-blue-600 text-white font-game text-xs font-bold px-3 py-1 rounded-lg">LEVEL 3 / BAB 3</span>
+                        <span class="text-3xl">🧭</span>
+                    </div>
+                    <h3 class="font-game text-xl font-bold text-blue-800 mb-2">LIHAT SEKITAR</h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">
+                        Modul Pembelajaran Teks Petunjuk & Denah Rute, Kalimat Imbauan & Larangan, serta Laporan Hasil Pengamatan.
+                    </p>
+                    <div class="text-xs font-bold text-blue-600 flex items-center gap-1">
+                        <span>Buka Modul Pembelajaran</span> ➔
+                    </div>
+                </div>
+
+                <!-- Level 4 Card -->
+                <div onclick="openLevelMaterial(4)" class="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-2xl p-5 shadow-sm hover:border-purple-400 cursor-pointer transition">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="bg-purple-600 text-white font-game text-xs font-bold px-3 py-1 rounded-lg">LEVEL 4 / BAB 4</span>
+                        <span class="text-3xl">⚡</span>
+                    </div>
+                    <h3 class="font-game text-xl font-bold text-purple-800 mb-2">MENGHEMAT ENERGI</h3>
+                    <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">
+                        Modul Pembelajaran Teks Prosedur, Awalan Berimbuhan (me-, ber-, di-), serta Wawancara & Kalimat Langsung.
+                    </p>
+                    <div class="text-xs font-bold text-purple-600 flex items-center gap-1">
+                        <span>Buka Modul Pembelajaran</span> ➔
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEARNING MATERIAL SECTION -->
+        <section id="screen-material" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto max-h-[85vh] overflow-y-auto">
+            <div class="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-3 sticky top-0 bg-white/90 backdrop-blur z-20 py-2">
+                <div class="flex items-center gap-2">
+                    <button onclick="goHome()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition">
+                        ⬅ Kembali ke Beranda
+                    </button>
+                    <h2 class="font-game text-xl md:text-2xl font-extrabold text-slate-800">
+                        📚 Modul Belajar Literasi Bahasa Indonesia
+                    </h2>
+                </div>
+
+                <div id="quiz-resume-bar" class="hidden flex items-center gap-2">
+                    <button onclick="resumeQuizFromMaterial()" class="bg-rose-500 hover:bg-rose-600 text-white font-game px-4 py-2 rounded-xl text-xs md:text-sm font-bold shadow-sm transition flex items-center gap-2">
+                        <span>↩</span> KEMBALI KE KUIS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Material Tabs -->
+            <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-2">
+                <button onclick="switchMaterialTab(1)" id="tab-mat-1" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-teal-600 text-white font-bold transition">
+                    BAB 1: Aku Sudah Besar
+                </button>
+                <button onclick="switchMaterialTab(2)" id="tab-mat-2" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    BAB 2: Di Bawah Atap
+                </button>
+                <button onclick="switchMaterialTab(3)" id="tab-mat-3" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    BAB 3: Lihat Sekitar
+                </button>
+                <button onclick="switchMaterialTab(4)" id="tab-mat-4" class="font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition">
+                    BAB 4: Menghemat Energi
+                </button>
+            </div>
+
+            <!-- CONTENT BAB 1 -->
+            <div id="mat-content-1" class="space-y-6">
+                <!-- Unsur Intrinsik -->
+                <div class="bg-white border-2 border-teal-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-teal-800 font-bold mb-3 flex items-center gap-2">
+                        <span>📖</span> 1. Unsur Intrinsik Cerita
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-3 text-xs md:text-sm">
+                        <div class="bg-teal-50 p-3.5 rounded-xl border border-teal-200">
+                            <h4 class="font-bold text-teal-900 mb-1">🎭 Tokoh & Watak</h4>
+                            <p class="text-slate-700 mb-1"><b>Tokoh Utama (Protagonis):</b> Pemeran utama berwatak baik.</p>
+                            <p class="text-slate-700"><b>Tokoh Penentang (Antagonis):</b> Tokoh dengan sifat penentang/kurang baik.</p>
+                        </div>
+                        <div class="bg-teal-50 p-3.5 rounded-xl border border-teal-200">
+                            <h4 class="font-bold text-teal-900 mb-1">🗺️ Latar Cerita</h4>
+                            <p class="text-slate-700"><b>Latar Tempat:</b> Di mana peristiwa terjadi (di hutan, di rumah, sekolah).</p>
+                            <p class="text-slate-700"><b>Latar Waktu:</b> Pagi, sore, tahun 2024.</p>
+                            <p class="text-slate-700"><b>Latar Suasana:</b> Menegangkan, gembira, sedih.</p>
+                        </div>
+                        <div class="bg-teal-50 p-3.5 rounded-xl border border-teal-200">
+                            <h4 class="font-bold text-teal-900 mb-1">🔄 Alur Cerita</h4>
+                            <p class="text-slate-700">1. Awal (Pengenalan)</p>
+                            <p class="text-slate-700">2. Konflik (Muncul Masalah)</p>
+                            <p class="text-slate-700">3. Penyelesaian (Solusi)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kalimat Transitif & Intransitif -->
+                <div class="bg-white border-2 border-teal-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-teal-800 font-bold mb-3 flex items-center gap-2">
+                        <span>💬</span> 2. Kalimat Transitif vs Kalimat Intransitif
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-xs md:text-sm">
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                            <h4 class="font-bold text-emerald-900 text-base mb-1">✅ Kalimat Transitif</h4>
+                            <p class="text-slate-700 mb-2">Kalimat yang <b>MEMBUTUHKAN OBJEK (O)</b> agar maknanya jelas dan utuh.</p>
+                            <div class="bg-white p-3 rounded-lg border border-emerald-300 font-mono text-xs">
+                                <b>Rumus:</b> Subjek (S) + Predikat (P) + Objek (O) + [Keterangan]<br><br>
+                                <b>Contoh 1:</b> Tio (S) memanjat (P) pohon jambu (O).<br>
+                                <b>Contoh 2:</b> Ibu (S) memasak (P) sayur bayam (O) di dapur (K).
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                            <h4 class="font-bold text-amber-900 text-base mb-1">❌ Kalimat Intransitif</h4>
+                            <p class="text-slate-700 mb-2">Kalimat yang <b>TIDAK MEMBUTUHKAN OBJEK (O)</b> untuk dapat dipahami.</p>
+                            <div class="bg-white p-3 rounded-lg border border-amber-300 font-mono text-xs">
+                                <b>Rumus:</b> Subjek (S) + Predikat (P) + [Keterangan]<br><br>
+                                <b>Contoh 1:</b> Rani (S) menangis (P) di kamar (K).<br>
+                                <b>Contoh 2:</b> Burung merpati (S) terbang (P) tinggi (K).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kamus KBBI & Kosakata Baru -->
+                <div class="bg-white border-2 border-teal-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-teal-800 font-bold mb-3 flex items-center gap-2">
+                        <span>📕</span> 3. Kosakata Baru & Penggunaan Kamus (KBBI)
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        Kamus Besar Bahasa Indonesia (KBBI) disusun berdasarkan <b>urutan abjad (A-Z)</b>. Untuk mencari kata berimbuhan, carilah dari <b>kata dasarnya</b> terlebih dahulu.
+                    </p>
+                    <div class="bg-teal-50 p-3.5 rounded-xl border border-teal-200 text-xs md:text-sm space-y-1.5 text-slate-800">
+                        <p><b>• Fobia:</b> Rasa takut berlebihan yang tidak rasional terhadap suatu hal.</p>
+                        <p><b>• Mewarisi:</b> Memperoleh sesuatu dari orang tua/pendahulu.</p>
+                        <p><b>• Sigung:</b> Hewan mamalia berbuntut lebat yang dapat mengeluarkan bau menyengat untuk perlindungan diri.</p>
+                        <p><b>• Panik:</b> Bingung, gugup, atau takut secara mendadak.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT BAB 2 -->
+            <div id="mat-content-2" class="hidden space-y-6">
+                <!-- Ide Pokok & Pendukung -->
+                <div class="bg-white border-2 border-amber-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-amber-800 font-bold mb-3 flex items-center gap-2">
+                        <span>🏠</span> 1. Ide Pokok & Ide Pendukung
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-3 text-xs md:text-sm">
+                        <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200">
+                            <h4 class="font-bold text-amber-900 mb-1">🎯 Ide Pokok (Gagasan Utama)</h4>
+                            <p class="text-slate-700">Inti atau masalah utama yang dibahas dalam paragraf.<br>
+                            • <b>Paragraf Deduktif:</b> Ide pokok terletak di <b>awal paragraf</b>.<br>
+                            • <b>Paragraf Induktif:</b> Ide pokok terletak di <b>akhir paragraf</b>.</p>
+                        </div>
+                        <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200">
+                            <h4 class="font-bold text-amber-900 mb-1">📝 Ide Pendukung (Kalimat Penjelas)</h4>
+                            <p class="text-slate-700">Kalimat-kalimat yang berfungsi memberikan rincian, contoh, dan penjelasan lebih rinci untuk mendukung ide pokok.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kalimat Majemuk Setara Lengkap -->
+                <div class="bg-white border-2 border-amber-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-amber-800 font-bold mb-3 flex items-center gap-2">
+                        <span>🔗</span> 2. Kalimat Majemuk Setara Lengkap
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        Gabungan dua atau lebih kalimat tunggal kedudukan setara dengan kata hubung (konjungsi):
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-3 text-xs md:text-sm">
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 mb-1">1. Hubungan Penggabungan (dan, serta)</h5>
+                            <p class="text-slate-700">Ibu memasak sayur <b>dan</b> Ayah membaca koran pagi.</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 mb-1">2. Hubungan Pertentangan (tetapi, sedangkan)</h5>
+                            <p class="text-slate-700">Budi menyukai Matematika, <b>sedangkan</b> Ani menyukai Bahasa Indonesia.</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 mb-1">3. Hubungan Pemilihan (atau)</h5>
+                            <p class="text-slate-700">Kamu boleh memilih membaca buku cerita <b>atau</b> majalah ini.</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 mb-1">4. Hubungan Urutan Waktu (lalu, kemudian)</h5>
+                            <p class="text-slate-700">Dina mencuci tangan dengan sabun, <b>lalu</b> ia makan siang.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homonim -->
+                <div class="bg-white border-2 border-amber-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-amber-800 font-bold mb-3 flex items-center gap-2">
+                        <span>🔠</span> 3. Kata Homonim (Makna Ganda)
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        Kata yang Mempunyai <b>Ejaan dan Lafal SAMA</b>, namun <b>Maknanya BERBEDA</b> tergantung kalimatnya.
+                    </p>
+                    <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200 text-xs md:text-sm space-y-2">
+                        <div>
+                            <b>• Bisa:</b>
+                            <br>1. Racun ular (<i>Contoh: Ular kobra itu mengeluarkan bisa beracun.</i>)
+                            <br>2. Sanggup/Mampu (<i>Contoh: Saya bisa menyelesaikan soal ini.</i>)
+                        </div>
+                        <div>
+                            <b>• Bulan:</b>
+                            <br>1. Satelit alami bumi (<i>Contoh: Bulan bersinar terang malam ini.</i>)
+                            <br>2. Jangka waktu 30 hari dalam kalender (<i>Contoh: Bulan Agustus adalah bulan kemerdekaan.</i>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT BAB 3 -->
+            <div id="mat-content-3" class="hidden space-y-6">
+                <!-- Denah & Rute -->
+                <div class="bg-white border-2 border-blue-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-blue-800 font-bold mb-3 flex items-center gap-2">
+                        <span>🧭</span> 1. Teks Petunjuk, Denah, & Rute
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        <b>Denah</b> adalah gambar petunjuk lokasi suatu tempat. Membaca denah membutuhkan pemahaman arah mata angin (Utara, Selatan, Timur, Barat) dan penanda jalan.
+                    </p>
+                    <div class="bg-blue-50 p-3.5 rounded-xl border border-blue-200 text-xs md:text-sm text-slate-800 space-y-1">
+                        <p><b>Kosakata Penting Petunjuk Rute:</b> Menyeberang jalan, berbelok ke kanan/kiri, berada di sebelah utara, terletak di seberang lapangan.</p>
+                    </div>
+                </div>
+
+                <!-- Kalimat Imbauan vs Larangan -->
+                <div class="bg-white border-2 border-blue-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-blue-800 font-bold mb-3 flex items-center gap-2">
+                        <span>📢</span> 2. Kalimat Imbauan vs Kalimat Larangan
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-xs md:text-sm">
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                            <h4 class="font-bold text-emerald-900 mb-1">📣 Kalimat Imbauan / Ajakan</h4>
+                            <p class="text-slate-700 mb-2">Berisi saran atau ajakan halus untuk melakukan kebaikan.</p>
+                            <p class="text-slate-700"><b>Kata Kunci:</b> <i>hendaknya, sebaiknya, ayo, marilah, tolong</i>.</p>
+                            <p class="mt-2 text-xs font-mono bg-white p-2 rounded border border-emerald-300">"Ayo, marilah kita menjaga kebersihan lingkungan kelas!"</p>
+                        </div>
+                        <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
+                            <h4 class="font-bold text-rose-900 mb-1">🚫 Kalimat Larangan</h4>
+                            <p class="text-slate-700 mb-2">Berisi perintah cegahan agar tidak melakukan sesuatu tindakan.</p>
+                            <p class="text-slate-700"><b>Kata Kunci:</b> <i>dilarang, jangan</i>, diakhiri <b>tanda seru (!)</b>.</p>
+                            <p class="mt-2 text-xs font-mono bg-white p-2 rounded border border-rose-300">"Dilarang menginjak rumput taman ini!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Laporan Pengamatan -->
+                <div class="bg-white border-2 border-blue-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-blue-800 font-bold mb-3 flex items-center gap-2">
+                        <span>📋</span> 3. Laporan Hasil Pengamatan (Observasi)
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        Laporan ditulis berdasarkan <b>fakta kenyataan langsung</b>. Struktur utama meliputi:
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs text-center font-semibold">
+                        <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200">1. Hal yang Diamati</div>
+                        <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200">2. Waktu Pengamatan</div>
+                        <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200">3. Tempat Pengamatan</div>
+                        <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200">4. Hasil Pengamatan</div>
+                        <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200 col-span-2 md:col-span-1">5. Kesimpulan</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT BAB 4 -->
+            <div id="mat-content-4" class="hidden space-y-6">
+                <!-- Teks Prosedur -->
+                <div class="bg-white border-2 border-purple-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-purple-800 font-bold mb-3 flex items-center gap-2">
+                        <span>⚡</span> 1. Teks Prosedur / Panduan
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-2">
+                        Teks yang berisi petunjuk langkah-langkah berurutan untuk membuat atau melakukan sesuatu.
+                    </p>
+                    <div class="bg-purple-50 p-3.5 rounded-xl border border-purple-200 text-xs md:text-sm space-y-1">
+                        <p><b>Ciri Utama:</b> Menggunakan kata kerja imperatif (perintah) dan urutan kronologis.</p>
+                        <p><b>Struktur Teks:</b> 1. Tujuan ➔ 2. Alat & Bahan ➔ 3. Langkah-Langkah Pengerjaan.</p>
+                    </div>
+                </div>
+
+                <!-- Awalan Berimbuhan -->
+                <div class="bg-white border-2 border-purple-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-purple-800 font-bold mb-3 flex items-center gap-2">
+                        <span>✏️</span> 2. Awalan Berimbuhan (me-, ber-, di-)
+                    </h3>
+                    <div class="space-y-3 text-xs md:text-sm">
+                        <div class="bg-slate-50 p-3 rounded-xl border">
+                            <b>• Imbuhan me-:</b> Membentuk kata kerja aktif. (<i>me- + sapu = menyapu; me- + baca = membaca; me- + tulis = menulis</i>).
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border">
+                            <b>• Imbuhan ber-:</b> Menyatakan mempunyai/melakukan sesuatu. (<i>ber- + jalan = berjalan; ber- + sepeda = bersepeda</i>).
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border">
+                            <b>• Bedakan Pasif (di-) vs Kata Depan (di):</b>
+                            <br>- <b>Awalan Pasif (disambung):</b> <i>dibaca, ditulis, dimatikan</i>.
+                            <br>- <b>Kata Depan Tempat (dipisah):</b> <i>di rumah, di dapur, di sekolah</i>.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wawancara & Kalimat Langsung -->
+                <div class="bg-white border-2 border-purple-100 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-game text-lg text-purple-800 font-bold mb-3 flex items-center gap-2">
+                        <span>🎙️</span> 3. Wawancara & Kalimat Langsung / Tidak Langsung
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-700 mb-3">
+                        <b>Wawancara:</b> Tanya jawab mencari informasi dari narasumber menggunakan konsep <b>5W1H (ADIKSIMBA)</b>: Apa, Di mana, Kapan, Siapa, Mengapa, Bagaimana.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-3 text-xs md:text-sm">
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                            <b>💬 Kalimat Langsung (Ada Tanda Petik):</b><br>
+                            Ibu berkata, <i>"Matikan kran air itu jika sudah penuh!"</i>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
+                            <b>🗣️ Kalimat Tidak Langsung (Tanpa Petik):</b><br>
+                            Ibu menyuruhku untuk mematikan kran air jika sudah penuh.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ SCREEN (50 QUESTIONS) -->
+        <section id="screen-quiz" class="hidden glass-card rounded-3xl p-6 md:p-8 my-auto">
+            <!-- Quiz Bar -->
+            <div class="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-2">
+                <div>
+                    <span id="quiz-progress-badge" class="font-game text-xs md:text-sm bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-bold border border-rose-200">
+                        SOAL 1 DARI 50
+                    </span>
+                    <h3 id="quiz-user-badge" class="font-game text-base md:text-lg font-bold text-slate-800 mt-1">
+                        Petualang: Siswa
+                    </h3>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="bg-amber-100 border border-amber-300 px-3.5 py-1.5 rounded-xl text-amber-900 font-game font-bold text-sm">
+                        ⭐ Skor: <span id="quiz-score-display">0</span>
+                    </div>
+                    <button onclick="pauseQuizToMaterial()" class="font-game bg-teal-600 hover:bg-teal-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1">
+                        📚 KEMBALI KE MATERI
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 md:p-6 shadow-sm mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span id="question-chapter-badge" class="px-2.5 py-1 rounded-md text-xs font-bold bg-teal-100 text-teal-800">
+                        Bab 1
+                    </span>
+                    <span id="question-difficulty-badge" class="px-2.5 py-1 rounded-md text-xs font-bold bg-slate-100 text-slate-700">
+                        Mudah
+                    </span>
+                </div>
+
+                <!-- Text Context Snippet Box -->
+                <div id="question-context-box" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-3 mb-4 text-xs md:text-sm font-serif italic text-slate-700">
+                </div>
+
+                <p id="question-text" class="font-game text-lg md:text-2xl font-bold text-slate-800 leading-snug mb-6">
+                    Memuat soal...
+                </p>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                    <!-- Options injected via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Feedback & Explanation Box -->
+            <div id="quiz-feedback-box" class="hidden border-2 rounded-2xl p-5 mb-6 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-2">
+                    <span id="feedback-icon" class="text-2xl"></span>
+                    <h4 id="feedback-title" class="font-game text-xl font-bold"></h4>
+                </div>
+                <div id="feedback-explanation" class="text-sm text-slate-700 leading-relaxed mb-4">
+                </div>
+                <button onclick="nextQuizQuestion()" class="font-game bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-3 rounded-xl shadow-sm transition">
+                    LANJUT KE SOAL BERIKUTNYA ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- RESULT EVALUATION SCREEN -->
+        <section id="screen-result" class="hidden glass-card rounded-3xl p-6 md:p-10 text-center max-w-2xl mx-auto w-full my-auto">
+            <div id="result-emoji" class="text-5xl mb-3">🎉</div>
+            <h2 class="font-game text-3xl md:text-4xl font-extrabold text-slate-800 mb-1">
+                KUIS EVALUASI LITERASI SELESAI!
+            </h2>
+            <p id="result-user-title" class="font-game text-lg text-teal-600 font-bold mb-6">
+                Selamat!
+            </p>
+
+            <div class="bg-gradient-to-br from-teal-50 to-amber-50 border-2 border-teal-200 rounded-2xl p-6 mb-6 shadow-inner">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Nilai Akhir Evaluasi</p>
+                <div class="font-game text-5xl md:text-6xl font-black text-teal-600 mb-2">
+                    <span id="final-score-val">0</span> <span class="text-2xl text-slate-400 font-semibold">/ 100</span>
+                </div>
+                
+                <div id="kkm-status-badge" class="inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4">
+                    STATUS KKM
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-xs md:text-sm font-semibold border-t border-teal-200/60 pt-4">
+                    <div class="bg-emerald-100/70 text-emerald-800 p-2.5 rounded-xl border border-emerald-200">
+                        ✅ Benar: <span id="final-correct-val" class="text-base font-bold">0</span> Soal
+                    </div>
+                    <div class="bg-rose-100/70 text-rose-800 p-2.5 rounded-xl border border-rose-200">
+                        ❌ Salah: <span id="final-wrong-val" class="text-base font-bold">0</span> Soal
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Message Box -->
+            <div id="result-motivation-box" class="hidden bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 mb-6 text-sm text-amber-900 font-semibold">
+                💪 Tetap semangat! Kamu belum mencapai batas KKM (75). Yuk, baca kembali modul materi pembelajaran lalu ulangi kuis untuk mendapatkan Sertifikat Digital!
+            </div>
+
+            <!-- Action buttons depending on KKM -->
+            <div class="flex flex-col sm:flex-row justify-center gap-3">
+                <button id="btn-cert-action" onclick="openCertificateModal()" class="font-game bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center justify-center gap-2">
+                    <span>🏆</span> LIHAT / CETAK SERTIFIKAT DIGITAL
+                </button>
+                <button id="btn-read-material-again" onclick="openLevelMaterial(1)" class="hidden font-game bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition items-center justify-center gap-2">
+                    <span>📚</span> BACA MATERI LAGI
+                </button>
+                <button onclick="restartQuiz()" class="font-game bg-slate-700 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center justify-center gap-2">
+                    <span>🔄</span> ULANGI KUIS DARI NO. 1
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CERTIFICATE MODAL -->
+    <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 md:p-10 border-8 border-amber-400 relative shadow-2xl my-8">
+            <button onclick="closeCertificateModal()" class="no-print absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-10 h-10 rounded-full font-bold text-xl flex items-center justify-center transition">
+                ✕
+            </button>
+
+            <!-- Printable Frame -->
+            <div class="border-4 border-dashed border-teal-300 rounded-2xl p-6 md:p-8 text-center bg-gradient-to-b from-amber-50/50 via-white to-teal-50/30 relative overflow-hidden">
+                <div class="w-16 h-16 mx-auto mb-2 text-amber-500">
+                    <i class="fa-solid fa-graduation-cap text-5xl"></i>
+                </div>
+                
+                <h3 class="font-game text-xs tracking-widest uppercase font-bold text-teal-800 mb-1">
+                    SERTIFIKAT PENGHARGAAN LITERASI NUSANTARA
+                </h3>
+                <h2 class="font-game text-2xl md:text-3xl font-extrabold text-slate-800 mb-4">
+                    PETUALANGAN BAHASA INDONESIA KELAS 4
+                </h2>
+
+                <p class="text-xs md:text-sm text-slate-600 italic mb-2">Diberikan secara terhormat kepada:</p>
+                <h1 id="cert-student-name" class="font-game text-2xl md:text-4xl font-black text-rose-600 border-b-2 border-rose-200 inline-block px-8 py-1 mb-3">
+                    [NAMA SISWA]
+                </h1>
+
+                <p id="cert-predicate-text" class="font-game text-lg font-bold text-amber-600 mb-4">
+                    🏆 MASTER LITERASI NUSANTARA
+                </p>
+
+                <p class="text-xs md:text-sm text-slate-700 max-w-2xl mx-auto leading-relaxed mb-6">
+                    Telah berhasil menyelesaikan 50 Soal Evaluasi Kuis Bahasa Indonesia Kurikulum Merdeka Semester 1 dengan hasil melampaui KKM (75).
+                </p>
+
+                <div class="inline-flex flex-wrap justify-center gap-6 bg-teal-50 border border-teal-200 rounded-2xl px-6 py-3 mb-6 text-xs md:text-sm font-bold text-teal-900">
+                    <div>Nilai Akhir: <span id="cert-score-display" class="text-rose-600 font-extrabold">0</span> / 100</div>
+                    <div>Status: <span class="text-emerald-600 font-extrabold">LULUS KKM (75)</span></div>
+                    <div>Tanggal: <span id="cert-date-display" class="text-slate-700">-</span></div>
+                </div>
+
+                <div class="flex justify-between items-end text-left border-t border-slate-200 pt-4 text-xs text-slate-500">
+                    <div>
+                        <p class="font-bold text-slate-800">Media Pembelajaran Interaktif</p>
+                        <p>Bahasa Indonesia SD/MI</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-slate-800">Identitas Pengembang:</p>
+                        <p class="text-rose-600 font-bold">Pengembang: Giga Inovation | 081329200985</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-print mt-6 flex justify-center">
+                <button onclick="window.print()" class="font-game bg-rose-600 hover:bg-rose-700 text-white font-bold px-8 py-3 rounded-2xl shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> CETAK / SIMPAN PDF SERTIFIKAT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSISTENT FOOTER -->
+    <footer class="bg-white/90 backdrop-blur border-t border-teal-200 py-3 text-center text-xs md:text-sm font-semibold text-slate-600 mt-auto">
+        Pengembang: <span class="text-teal-700 font-bold">Giga Inovation</span> | 081329200985
+    </footer>
+
+    <script>
+        /* APPLICATION STATE */
+        let studentName = "";
+        let currentQuestionIndex = 0;
+        let score = 0; // 50 questions x 2 = 100 max
+        let correctCount = 0;
+        let wrongCount = 0;
+        let isQuizPaused = false;
+        let isMuted = false;
+        let globalVolume = 0.8;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function startQuiz(freshStart = true) {
+            if (freshStart) {
+                currentQuestionIndex = 0;
+                score = 0;
+                correctCount = 0;
+                wrongCount = 0;
+            }
+            isQuizPaused = false;
+            showScreen('screen-quiz');
+            loadQuizQuestion(currentQuestionIndex);
+        }
+
+        function finishQuiz() {
+            showScreen('screen-result');
+
+            document.getElementById('result-user-title').textContent = `Selamat, ${studentName}!`;
+            document.getElementById('final-score-val').textContent = score;
+            document.getElementById('final-correct-val').textContent = correctCount;
+            document.getElementById('final-wrong-val').textContent = wrongCount;
+
+            const kkmBadge = document.getElementById('kkm-status-badge');
+            const certBtn = document.getElementById('btn-cert-action');
+            const readMatBtn = document.getElementById('btn-read-material-again');
+            const motivationBox = document.getElementById('result-motivation-box');
+
+            if (score >= 75) {
+                playSFX('fanfare');
+                kkmBadge.textContent = "STATUS: LULUS KKM (≥ 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-emerald-100 text-emerald-800 border border-emerald-300";
+                certBtn.disabled = false;
+                certBtn.classList.remove('hidden', 'opacity-50', 'cursor-not-allowed');
+                readMatBtn.classList.add('hidden');
+                motivationBox.classList.add('hidden');
+
+                speakIndonesian(`Selamat, ${studentName}! Kamu LULUS KKM dengan nilai ${score}! Sertifikat penghargaan kamu sudah aktif.`);
+            } else {
+                playSFX('wrong');
+                kkmBadge.textContent = "STATUS: BELUM TUNTAS KKM (< 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-rose-100 text-rose-800 border border-rose-300";
+                certBtn.classList.add('hidden');
+                readMatBtn.classList.remove('hidden');
+                readMatBtn.classList.add('flex');
+                motivationBox.classList.remove('hidden');
+
+                speakIndonesian(`Nilai kamu ${score}, belum mencapai KKM 75. Jangan berkecil hati, ayo baca materi lagi dan ulangi kuis!`);
+            }
+        }
+
+        function restartQuiz() {
+            startQuiz(true);
+        }
+
+        function playSFX(type) {
+            if (isMuted) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+            gain.gain.setValueAtTime(globalVolume * 0.3, now);
+
+            if (type === 'click') {
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (type === 'correct') {
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.1);
+                osc.frequency.setValueAtTime(783.99, now + 0.2);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.setValueAtTime(160, now + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'fanfare') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.12);
+                osc.frequency.setValueAtTime(783.99, now + 0.24);
+                osc.frequency.setValueAtTime(1046.50, now + 0.36);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            }
+        }
+
+        function speakIndonesian(text) {
+            if (isMuted) return;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.volume = globalVolume;
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('icon-audio');
+            if (isMuted) {
+                icon.className = "fa-solid fa-volume-xmark text-rose-600";
+                window.speechSynthesis.cancel();
+            } else {
+                icon.className = "fa-solid fa-volume-high text-teal-700";
+                playSFX('click');
+            }
+        }
+
+        function changeVolume(val) {
+            globalVolume = parseFloat(val);
+        }
+
+        function showScreen(screenId) {
+            playSFX('click');
+            const screens = ['screen-welcome', 'screen-home', 'screen-material', 'screen-quiz', 'screen-result'];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+
+            const resumeBar = document.getElementById('quiz-resume-bar');
+            if (isQuizPaused && screenId === 'screen-material') {
+                resumeBar.classList.remove('hidden');
+            } else {
+                resumeBar.classList.add('hidden');
+            }
+        }
+
+        function goHome() {
+            if (studentName) {
+                showScreen('screen-home');
+            } else {
+                showScreen('screen-welcome');
+            }
+        }
+
+        function submitStudentName() {
+            const input = document.getElementById('student-name-input');
+            const val = input.value.trim();
+            if (!val) {
+                alert('Silakan tuliskan namamu terlebih dahulu!');
+                return;
+            }
+            studentName = val;
+            document.getElementById('home-user-badge').textContent = `Petualang: ${studentName}`;
+            
+            const msg = `Halo, ${studentName}! Selamat datang di Petualangan Bahasa Indonesia Kelas 4!`;
+            document.getElementById('welcome-speech-text').textContent = msg;
+            document.getElementById('welcome-speech-box').classList.remove('hidden');
+
+            speakIndonesian(msg);
+
+            setTimeout(() => {
+                showScreen('screen-home');
+            }, 1800);
+        }
+
+        function openLevelMaterial(levelNum) {
+            showScreen('screen-material');
+            switchMaterialTab(levelNum);
+        }
+
+        function switchMaterialTab(tabNum) {
+            playSFX('click');
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`tab-mat-${i}`);
+                const content = document.getElementById(`mat-content-${i}`);
+                if (i === tabNum) {
+                    btn.className = "font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-teal-600 text-white font-bold transition";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "font-game text-xs md:text-sm px-4 py-2 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 font-bold transition";
+                    content.classList.add('hidden');
+                }
+            }
+        }
+
+        function pauseQuizToMaterial() {
+            isQuizPaused = true;
+            showScreen('screen-material');
+        }
+
+        function resumeQuizFromMaterial() {
+            isQuizPaused = false;
+            showScreen('screen-quiz');
+        }
+
+        const questionsData = [
+            // BAB 1 (13 SOAL)
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Mudah",
+                context: "Rani selalu menyapa temannya dengan ramah dan tidak pernah marah jika ada yang tidak sengaja menyenggolnya.",
+                question: "Watak tokoh Rani dalam cerita di atas adalah...",
+                options: ["Sombong dan galak", "Ramah dan pemaaf", "Penakut dan pemalu", "Acuh tak acuh"],
+                answer: 1,
+                explanation: "Watak adalah sifat tokoh. Rani memiliki sifat ramah dan pemaaf."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Mudah",
+                question: "Kalimat transitif adalah kalimat yang membutuhkan...",
+                options: ["Subjek saja", "Objek (O)", "Kata sifat", "Tanda seru"],
+                answer: 1,
+                explanation: "Kalimat transitif selalu memerlukan Objek agar maknanya utuh."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Manakah di bawah ini yang merupakan contoh kalimat transitif?",
+                options: ["Adik menangis tersedu-sedu.", "Ibu memotong sayuran di dapur.", "Budi melompat tinggi.", "Burung terbang ke udara."],
+                answer: 1,
+                explanation: "Ibu (S) memotong (P) sayuran (O) di dapur (K). 'Sayuran' bertindak sebagai Objek."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Manakah di bawah ini yang merupakan kalimat intransitif?",
+                options: ["Ayah membaca koran.", "Siti menulis surat.", "Kucing itu tertidur pulas.", "Rudi menendang bola."],
+                answer: 2,
+                explanation: "Kalimat 'Kucing itu tertidur pulas' tidak memiliki Objek."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Mudah",
+                question: "Dalam kamus KBBI, kata-kata disusun secara berurutan berdasarkan...",
+                options: ["Panjang kalimat", "Abjad (A-Z)", "Tanggal dibuat", "Nama pengarang"],
+                answer: 1,
+                explanation: "Penyusunan kata dalam KBBI mengikuti urutan abjad."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Jika ingin mencari arti kata 'menari' di dalam KBBI, kata dasar yang harus kita cari adalah...",
+                options: ["Tari", "Menari", "Penari", "Tarian"],
+                answer: 0,
+                explanation: "Kata dasar dari 'menari' adalah 'tari'."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "HOTS",
+                context: "Tono ingin tahu arti kata 'menggigit'. Urutan huruf pertama yang harus dicari Tono di kamus adalah...",
+                options: ["Huruf M", "Huruf G (dari kata dasar gigit)", "Huruf E", "Huruf N"],
+                answer: 1,
+                explanation: "Di KBBI, kata 'menggigit' dicari melalui kata dasarnya, yaitu 'gigit' (Huruf G)."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Pesan moral atau ajaran kebaikan yang ingin disampaikan pengarang dalam cerita disebut...",
+                options: ["Amanat", "Latar tempat", "Alur cerita", "Judul"],
+                answer: 0,
+                explanation: "Amanat adalah pesan moral dalam cerita."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Mudah",
+                question: "Tokoh utama yang berwatak baik dalam sebuah cerita dinamakan...",
+                options: ["Antagonis", "Protagonis", "Tritagonis", "Figuran"],
+                answer: 1,
+                explanation: "Protagonis adalah tokoh utama berwatak baik."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Susunan jalannya peristiwa dari awal hingga akhir cerita disebut...",
+                options: ["Watak", "Alur cerita", "Tema", "Kosakata"],
+                answer: 1,
+                explanation: "Alur cerita adalah rangkaian peristiwa dari awal, konflik, hingga penyelesaian."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "HOTS",
+                context: "Kalimat: 'Boni menengok temannya yang sakit.'",
+                question: "Fungsi kata 'temannya' pada kalimat di atas adalah sebagai...",
+                options: ["Subjek (S)", "Predikat (P)", "Objek (O)", "Keterangan (K)"],
+                answer: 2,
+                explanation: "Boni (S) menengok (P) temannya (O) yang sakit (K)."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Mudah",
+                question: "Arti dari kosakata 'fobia' dalam bahasa Indonesia adalah...",
+                options: ["Rasa takut berlebihan terhadap sesuatu", "Hobi membaca buku", "Kegemaran berolahraga", "Sifat sangat berani"],
+                answer: 0,
+                explanation: "Fobia adalah ketakutan berlebihan yang tidak rasional."
+            },
+            {
+                chapter: "Bab 1: Aku Sudah Besar",
+                level: "Sedang",
+                question: "Kalimat 'Anjing itu menggonggong nyaring' termasuk kalimat...",
+                options: ["Transitif", "Intransitif", "Majemuk", "Pasif"],
+                answer: 1,
+                explanation: "Kalimat tersebut tidak memiliki Objek, jadi merupakan kalimat Intransitif."
+            },
+
+            // BAB 2 (12 SOAL)
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Mudah",
+                question: "Inti atau gagasan utama dari sebuah paragraf disebut...",
+                options: ["Ide pokok", "Ide pendukung", "Judul buku", "Kesimpulan"],
+                answer: 0,
+                explanation: "Ide pokok adalah gagasan inti dari sebuah paragraf."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                question: "Kalimat yang bertugas menjelaskan dan memperjelas ide pokok dinamakan...",
+                options: ["Kalimat penjelas / Ide pendukung", "Kalimat tanya", "Kalimat permohonan", "Kalimat perintah"],
+                answer: 0,
+                explanation: "Ide pendukung/kalimat penjelas bertugas memberikan rincian dari ide pokok."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                question: "Kata hubung (konjungsi) yang digunakan untuk menyatakan pertentangan dalam kalimat majemuk adalah...",
+                options: ["Dan", "Tetapi", "Atau", "Sehingga"],
+                answer: 1,
+                explanation: "Kata 'tetapi' digunakan untuk menyatakan hubungan pertentangan."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                question: "Kata hubung 'atau' digunakan untuk menyatakan...",
+                options: ["Penjumlahan", "Pilihan", "Pertentangan", "Waktu"],
+                answer: 1,
+                explanation: "Kata 'atau' digunakan jika ada pilihan."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Mudah",
+                question: "Kata yang ejaan dan lafalnya sama tetapi memiliki makna berbeda disebut...",
+                options: ["Homonim", "Anonim", "Sinonim", "Antonim"],
+                answer: 0,
+                explanation: "Homonim adalah kata bersuara/bersejaan sama namun beda arti."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "HOTS",
+                context: "1) Ayah menabung uang di bank. 2) Kakak membeli Bang Joko es krim.",
+                question: "Kata 'bank' dan 'bang' pada contoh di atas tergolong homofon. Arti kata 'bank' pada kalimat (1) adalah...",
+                options: ["Panggilan untuk kakak laki-laki", "Lembaga tempat menyimpan uang", "Nama jenis buah", "Alat penerangan"],
+                answer: 1,
+                explanation: "Bank (dengan k) adalah lembaga keuangan tempat menyimpan uang."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                context: "Rani suka menggambar, (...) adiknya lebih suka menyanyi.",
+                question: "Kata hubung yang paling tepat untuk melengkapi kalimat pertentangan di atas adalah...",
+                options: ["Dan", "Tetapi", "Atau", "Sebab"],
+                answer: 1,
+                explanation: "Pertentangan antara hobi Rani dan adiknya menggunakan konjungsi 'tetapi'."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Mudah",
+                question: "Di mana biasanya letak ide pokok paragraf deduktif?",
+                options: ["Di awal paragraf", "Di tengah paragraf", "Di akhir paragraf", "Di luar teks"],
+                answer: 0,
+                explanation: "Paragraf deduktif memiliki ide pokok di awal paragraf."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                context: "Ular itu memiliki 'bisa' yang sangat beracun.",
+                question: "Arti kata 'bisa' pada kalimat di atas adalah...",
+                options: ["Dapat / Mampu", "Racun ular", "Pasti", "Boleh"],
+                answer: 1,
+                explanation: "Bisa pada ular berarti racun."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "HOTS",
+                question: "Manakah kalimat majemuk setara yang menyatakan pilihan?",
+                options: ["Dedi membaca buku dan adik tidur.", "Ibu membeli baju tetapi ukurannya kekecilan.", "Kamu mau minum jus alpukat atau es teh hangat?", "Andi belajar dengan rajin."],
+                answer: 2,
+                explanation: "Kalimat pilihan menggunakan konjungsi 'atau'."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Sedang",
+                question: "Paragraf yang ide pokoknya terletak di akhir paragraf dinamakan paragraf...",
+                options: ["Deduktif", "Induktif", "Campuran", "Deskriptif"],
+                answer: 1,
+                explanation: "Paragraf Induktif memiliki gagasan utama di akhir."
+            },
+            {
+                chapter: "Bab 2: Di Bawah Atap",
+                level: "Mudah",
+                question: "Kalimat majemuk setara gabungan dua kalimat tunggal menggunakan kata 'dan' mengandung makna...",
+                options: ["Penjumlahan / Penggabungan", "Pertentangan", "Sebab akibat", "Pilihan"],
+                answer: 0,
+                explanation: "Kata 'dan' menyatakan penggabungan/penjumlahan."
+            },
+
+            // BAB 3 (13 SOAL)
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Mudah",
+                question: "Gambar yang menunjukkan letak kota, jalan, atau tempat dinamakan...",
+                options: ["Denah / Rute", "Lukisan", "Poster", "Komik"],
+                answer: 0,
+                explanation: "Denah menggambarkan lokasi dan rute jalan."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Mudah",
+                question: "Kalimat yang digunakan untuk melarang seseorang melakukan sesuatu adalah...",
+                options: ["Kalimat perintah", "Kalimat larangan", "Kalimat berita", "Kalimat tanya"],
+                answer: 1,
+                explanation: "Kalimat larangan berisi instruksi mencegah tindakan."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Ciri khas kata dalam kalimat larangan biasanya menggunakan kata...",
+                options: ["Ayo dan Mari", "Jangan dan Dilarang", "Tolong dan Silakan", "Mengapa dan Bagaimana"],
+                answer: 1,
+                explanation: "Kata 'jangan' dan 'dilarang' adalah penanda kalimat larangan."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Mudah",
+                question: "Tanda baca yang berada di akhir kalimat perintah atau imbauan adalah...",
+                options: ["Tanda titik (.)", "Tanda tanya (?)", "Tanda seru (!)", "Tanda koma (,)"],
+                answer: 2,
+                explanation: "Kalimat imperatif/perintah diakhiri tanda seru (!)."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Contoh kalimat imbauan yang bersifat mengajak adalah...",
+                options: ["Dilarang membuang sampah!", "Ayo kita jaga kebersihan lingkungan kelas kita!", "Siapa nama guru barumu?", "Rumah itu sangat bersih."],
+                answer: 1,
+                explanation: "Kalimat imbauan ajakan ditandai kata 'Ayo'."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Laporan hasil pengamatan ditulis berdasarkan...",
+                options: ["Khayalan pengarang", "Kenyataan / Hasil pengamatan langsung", "Cerita dongeng", "Mimpi"],
+                answer: 1,
+                explanation: "Laporan pengamatan harus bersifat objektif dan fakta."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "HOTS",
+                context: "Rute: Dari Sekolah berjalan ke arah Utara di Jalan Melati, lalu belok kanan di perempatan Jalan Mawar.",
+                question: "Setelah belok kanan di Jalan Mawar, arah angin yang dituju adalah...",
+                options: ["Timur", "Barat", "Selatan", "Utara"],
+                answer: 0,
+                explanation: "Jika berhadapan ke Utara, arah sebelah kanan adalah Timur."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Teks yang memberikan petunjuk urutan jalan menuju lokasi tujuan disebut...",
+                options: ["Teks rute / Teks petunjuk lokasi", "Teks narasi dongeng", "Teks puisi", "Teks prosedur masak"],
+                answer: 0,
+                explanation: "Teks rute memberikan arah acuan lokasi."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Mudah",
+                question: "Tanda rambu lalu lintas berlatar biru dengan gambar orang menyeberang jalan artinya...",
+                options: ["Dilarang menyeberang", "Tempat penyeberangan jalan (Zebra cross)", "Boleh parkir", "Jalan buntu"],
+                answer: 1,
+                explanation: "Rambu biru bergambar pejalan kaki menunjukkan tempat menyeberang."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "HOTS",
+                question: "Manakah penulisan kalimat larangan dengan tanda baca yang benar?",
+                options: ["Jangan menginjak rumput itu?", "Jangan menginjak rumput itu!", "Jangan menginjak rumput itu.", "Jangan, menginjak rumput itu"],
+                answer: 1,
+                explanation: "Kalimat larangan harus diakhiri tanda seru (!)."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Struktur utama dalam laporan hasil pengamatan terdiri dari...",
+                options: ["Hal diamati, Waktu, Hasil, dan Kesimpulan", "Pemeran utama dan konflik", "Sajak dan bait", "Sampul dan pengarang"],
+                answer: 0,
+                explanation: "Struktur laporan pengamatan mencakup objek, waktu, fakta hasil, dan kesimpulan."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Mudah",
+                question: "Arah mata angin yang berada di antara Selatan dan Barat adalah...",
+                options: ["Barat Daya", "Barat Laut", "Tenggara", "Timur Laut"],
+                answer: 0,
+                explanation: "Di antara Selatan dan Barat adalah Barat Daya."
+            },
+            {
+                chapter: "Bab 3: Lihat Sekitar",
+                level: "Sedang",
+                question: "Kata imperatif berikut yang menunjukkan permohonan halus adalah...",
+                options: ["Tolong", "Pergi", "Jangan", "Dilarang"],
+                answer: 0,
+                explanation: "Kata 'Tolong' melunakkan perintah menjadi permohonan santun."
+            },
+
+            // BAB 4 (12 SOAL)
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Mudah",
+                question: "Teks yang memuat langkah-langkah berurutan untuk membuat sesuatu dinamakan...",
+                options: ["Teks Prosedur", "Teks Puisi", "Teks Fabel", "Teks Surat"],
+                answer: 0,
+                explanation: "Teks Prosedur petunjuk berisi cara/langkah kerja."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Kata dasar 'tulis' jika diberi imbuhan me- berubah menjadi...",
+                options: ["Metulis", "Menulis", "Mentulis", "Memtulis"],
+                answer: 1,
+                explanation: "Imbuhan me- + tulis (huruf t lebur) menjadi 'menulis'."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Kata dasar 'baca' jika diberi imbuhan di- menjadi kata kerja pasif yaitu...",
+                options: ["Membaca", "Dibaca", "Terbaca", "Penjual"],
+                answer: 1,
+                explanation: "Imbuhan di- + baca = dibaca (kata kerja pasif)."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Mudah",
+                question: "Kegiatan tanya jawab antara dua orang atau lebih untuk memperoleh informasi disebut...",
+                options: ["Wawancara", "Pidato", "Musyawarah", "Debat"],
+                answer: 0,
+                explanation: "Wawancara adalah proses tanya jawab cari informasi."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Orang yang memberikan informasi dan menjawab pertanyaan saat wawancara dinamakan...",
+                options: ["Pewawancara", "Narasumber", "Saksi", "Pembawa acara"],
+                answer: 1,
+                explanation: "Narasumber adalah pemberi informasi."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Kalimat langsung dalam teks ditandai dengan penggunaan tanda baca...",
+                options: ["Tanda Petik Dua (\"...\")", "Tanda Kurung ((...))", "Tanda Hubung (-)", "Tanda Titik Dua (:)"],
+                answer: 0,
+                explanation: "Kalimat langsung mengutip ujaran dengan tanda petik dua."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "HOTS",
+                context: "Kalimat Langsung: Ibu berkata, \"Matikan lampu jika sudah siang!\"",
+                question: "Bentuk kalimat tidak langsung yang benar dari kalimat di atas adalah...",
+                options: [
+                    "Ibu menyuruhku mematikan lampu jika sudah siang.",
+                    "Ibu bertanya apakah lampu sudah dimatikan?",
+                    "Ibu mematikan lampu siang hari.",
+                    "\"Matikan lampu siang hari,\" kata Ibu."
+                ],
+                answer: 0,
+                explanation: "Kalimat tidak langsung mengutip kembali amanat tanpa petik."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Kata dasar 'sapu' jika diberi imbuhan me- akan menjadi...",
+                options: ["Mesapu", "Menyapu", "Memsapu", "Mensapu"],
+                answer: 1,
+                explanation: "Imbuhan me- + sapu (huruf s lebur menjadi ny) -> menyapu."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Mudah",
+                question: "Urutan langkah-langkah pada teks prosedur harus disusun secara...",
+                options: ["Acak", "Runtut / Berurutan", "Dari yang paling sulit", "Terserah pengarang"],
+                answer: 1,
+                explanation: "Langkah prosedur wajib sistematis dan runtut."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Sedang",
+                question: "Imbuhan ber- jika dirangkaikan dengan kata 'sepeda' menjadi...",
+                options: ["Bersepeda", "Bessepeda", "Bersepedan", "Mensepeda"],
+                answer: 0,
+                explanation: "Imbuhan ber- + sepeda = bersepeda."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "HOTS",
+                question: "Sikap santun yang wajib dilakukan sebelum memulai wawancara adalah...",
+                options: [
+                    "Langsung bertanya tanpa salam",
+                    "Mengucapkan salam dan meminta izin narasumber dengan sopan",
+                    "Memotong pembicaraan narasumber",
+                    "Memaksa narasumber menjawab cepat"
+                ],
+                answer: 1,
+                explanation: "Etika wawancara mewajibkan salam dan izin santun."
+            },
+            {
+                chapter: "Bab 4: Menghemat Energi",
+                level: "Mudah",
+                question: "Kata tanya yang digunakan untuk menanyakan alasan atau penyebab terjadinya sesuatu adalah...",
+                options: ["Apa", "Siapa", "Mengapa", "Di mana"],
+                answer: 2,
+                explanation: "Kata tanya 'Mengapa' menanyakan alasan/sebab."
+            }
+        ];
+
+        function startGlobalQuiz(freshStart = true) {
+            if (freshStart) {
+                currentQuestionIndex = 0;
+                score = 0;
+                correctCount = 0;
+                wrongCount = 0;
+            }
+            isQuizPaused = false;
+            showScreen('screen-quiz');
+            loadQuizQuestion(currentQuestionIndex);
+        }
+
+        function loadQuizQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questionsData[index];
+
+            document.getElementById('quiz-feedback-box').classList.add('hidden');
+
+            document.getElementById('quiz-progress-badge').textContent = `SOAL ${index + 1} DARI ${questionsData.length}`;
+            document.getElementById('quiz-user-badge').textContent = `Petualang: ${studentName}`;
+            document.getElementById('quiz-score-display').textContent = score;
+
+            document.getElementById('question-chapter-badge').textContent = q.chapter;
+            document.getElementById('question-difficulty-badge').textContent = `Tingkat: ${q.level}`;
+
+            const ctxBox = document.getElementById('question-context-box');
+            if (q.context) {
+                ctxBox.textContent = `"${q.context}"`;
+                ctxBox.classList.remove('hidden');
+            } else {
+                ctxBox.classList.add('hidden');
+            }
+
+            document.getElementById('question-text').textContent = q.question;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "opt-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-teal-400 hover:bg-teal-50/50 font-semibold text-slate-700 transition flex items-center gap-3";
+                btn.onclick = () => selectQuizAnswer(idx);
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-sm shrink-0 border border-slate-300">${prefixes[idx]}</span>
+                    <span class="text-xs md:text-sm">${opt}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectQuizAnswer(selectedIdx) {
+            const q = questionsData[currentQuestionIndex];
+            const isCorrect = (selectedIdx === q.answer);
+
+            const buttons = document.querySelectorAll('.opt-btn');
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.answer) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+                } else if (idx === selectedIdx && !isCorrect) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900');
+                }
+            });
+
+            const fbBox = document.getElementById('quiz-feedback-box');
+            const fbIcon = document.getElementById('feedback-icon');
+            const fbTitle = document.getElementById('feedback-title');
+            const fbExp = document.getElementById('feedback-explanation');
+
+            fbBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                playSFX('correct');
+                score += 2; // 50 x 2 = 100 max
+                correctCount++;
+                document.getElementById('quiz-score-display').textContent = score;
+
+                fbBox.className = "border-2 rounded-2xl p-5 mb-6 bg-emerald-50 border-emerald-300 text-emerald-900";
+                fbIcon.textContent = "✓";
+                fbTitle.textContent = `BENAR! Hebat sekali, ${studentName}!`;
+                fbExp.innerHTML = `<b>Pembahasan:</b> ${q.explanation}`;
+
+                speakIndonesian(`Benar, ${studentName}! Jawaban kamu tepat.`);
+            } else {
+                playSFX('wrong');
+                wrongCount++;
+                fbBox.className = "border-2 rounded-2xl p-5 mb-6 bg-rose-50 border-rose-300 text-rose-900";
+                fbIcon.textContent = "✗";
+                fbTitle.textContent = `BELUM TEPAT, ${studentName}! Tetap semangat!`;
+                fbExp.innerHTML = `<b>Kunci Jawaban Benar:</b> ${q.options[q.answer]}<br><br><b>Pembahasan:</b> ${q.explanation}`;
+
+                speakIndonesian(`Belum tepat, ${studentName}. Mari pelajari pembahasannya.`);
+            }
+        }
+
+        function nextQuizQuestion() {
+            playSFX('click');
+            if (currentQuestionIndex + 1 < questionsData.length) {
+                loadQuizQuestion(currentQuestionIndex + 1);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            showScreen('screen-result');
+
+            document.getElementById('result-user-title').textContent = `Selamat, ${studentName}!`;
+            document.getElementById('final-score-val').textContent = score;
+            document.getElementById('final-correct-val').textContent = correctCount;
+            document.getElementById('final-wrong-val').textContent = wrongCount;
+
+            const kkmBadge = document.getElementById('kkm-status-badge');
+            const certBtn = document.getElementById('btn-cert-action');
+
+            if (score >= 75) {
+                playSFX('fanfare');
+                kkmBadge.textContent = "STATUS: LULUS KKM (≥ 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-emerald-100 text-emerald-800 border border-emerald-300";
+                certBtn.disabled = false;
+                certBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                speakIndonesian(`Selamat, ${studentName}! Kamu LULUS KKM dengan nilai ${score}! Sertifikat penghargaan kamu sudah aktif.`);
+            } else {
+                playSFX('wrong');
+                kkmBadge.textContent = "STATUS: BELUM TUNTAS KKM (< 75)";
+                kkmBadge.className = "inline-block px-4 py-1.5 rounded-full font-game font-bold text-sm mb-4 bg-rose-100 text-rose-800 border border-rose-300";
+                certBtn.disabled = true;
+                certBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                speakIndonesian(`Nilai kamu ${score}, belum mencapai KKM 75. Jangan berkecil hati, ayo baca materi lagi dan ulangi kuis!`);
+            }
+        }
+
+        function restartQuiz() {
+            startGlobalQuiz(true);
+        }
+
+        function openCertificateModal() {
+            if (score < 75) return;
+            playSFX('click');
+
+            document.getElementById('cert-student-name').textContent = studentName;
+            document.getElementById('cert-score-display').textContent = score;
+
+            const predEl = document.getElementById('cert-predicate-text');
+            if (score >= 90) {
+                predEl.textContent = "🏆 MASTER LITERASI NUSANTARA (Sangat Baik)";
+            } else {
+                predEl.textContent = "🌟 DUTA BAHASA MUDA HEBAT (Baik)";
+            }
+
+            const d = new Date();
+            const dateStr = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date-display').textContent = dateStr;
+
+            document.getElementById('certificate-modal').classList.remove('hidden');
+        }
+
+        function closeCertificateModal() {
+            playSFX('click');
+            document.getElementById('certificate-modal').classList.add('hidden');
+        }
+
+        /* INITIAL LOAD */
+        window.onload = function() {
+            showScreen('screen-welcome');
+        };
+    </script>
+</body>
+</html>
